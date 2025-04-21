@@ -83,13 +83,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         //设置密码，默认密码123456
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
-        //设置当前记录的创建时间和修改时间
-        //employee.setCreateTime(LocalDateTime.now());
-        //employee.setUpdateTime(LocalDateTime.now());
+//        设置当前记录的创建时间和修改时间
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
 
-        //设置当前记录创建人id和修改人id
-        //employee.setCreateUser(BaseContext.getCurrentId());
-        //employee.setUpdateUser(BaseContext.getCurrentId());
+//        设置当前记录创建人id和修改人id
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
     }
@@ -103,6 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         // select * from employee limit 0,10
         //开始分页查询
+        //mybatis plus分页查询   1.配置分页插件  2.调用分页查询方法  3.获取分页结果
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
 
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
